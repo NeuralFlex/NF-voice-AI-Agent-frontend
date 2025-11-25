@@ -18,19 +18,7 @@ const InterviewForm: React.FC<{}> = () => {
     { value: "narrow_nonfollowup", label: "4. Narrow, non-follow-up" },
   ];
 
-  // const handleStartInterviewResponse = (response: any) => {
-  //   // store thread ID globally
-  //   setThreadId(response.thread_id);
 
-  //   // mark the interview as started
-  //   setInterviewStarted(true);
-
-  //   // add the first assistant message to the chat
-  //   addMessage({
-  //     role: "assistant",
-  //     content: response.message || "Let's begin!",
-  //   });
-  // };
   const interviewStarted = useInterviewStore((state) => state.interviewStarted);
   const {mode} = useInterviewStore();
   const onSubmit = async (

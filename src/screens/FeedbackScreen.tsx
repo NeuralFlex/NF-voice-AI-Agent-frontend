@@ -7,7 +7,6 @@ import "./FeedbackScreen.css";
 const FeedbackScreen: React.FC = () => {
   const { candidateName, jobTitle, feedbackList, finalEvaluation, qaPairs } = useInterviewStore();
 
-  // Debug: Log everything to console
   console.log("Debug - Store State:", {
     candidateName,
     jobTitle,
