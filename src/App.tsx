@@ -8,6 +8,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ReportView from "./screens/ReportView";
 import FeedbackScreen from "./screens/FeedbackScreen";
 import MessageScreenVoice from "./screens/MessageScreenVoice";
+import Configure from "./screens/Configure";
+import Dashboard from "./screens/Dashboard";
+import MeetingRoom from "./screens/MeetingRoom";
+import StartInterview from "./screens/StartInterview";
 function App() {
   return (
     <BrowserRouter>
@@ -17,11 +21,16 @@ function App() {
           <Route path="/report" element={<InterviewForm />} />
           <Route path="/messages-chat" element={<MessageScreen />} />
           <Route path="/messages-voice" element={<MessageScreenVoice />} />
+          <Route path="/configure" element={<Configure />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/start-interview" element={<StartInterview />} />
 
+          <Route path="/meeting-room" element={<MeetingRoom username="Alice" room_name="my-first-room" />} />
           <Route path="/feedback" element={<FeedbackScreen />} />
 
         </Routes>
       </div>
+      
     </BrowserRouter>
   );
 }

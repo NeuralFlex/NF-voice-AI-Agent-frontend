@@ -24,4 +24,12 @@ export const api = {
         });
         return response.json();
     },
+  joinMeeting: async (username: string, room_name: string) => {
+  const response = await fetch(`${BACKEND_URL}/join`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, room_name }),
+  });
+  return response.json();
+}
 };

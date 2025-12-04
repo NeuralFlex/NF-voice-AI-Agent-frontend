@@ -17,8 +17,16 @@ interface FinalEvaluation {
   recommendation?: string;
   final_feedback?: string;
 }
+interface InterviewForm {
+  name: string;
+  position: string;
+  difficulty: string;
+  questions: number;
+  cv: File | null;
+}
 
 interface InterviewState {
+  form: InterviewForm
   interviewStarted: boolean;
   messages: Message[];
   threadId?: string;
@@ -35,7 +43,8 @@ interface InterviewState {
 
   feedbackList: any[]; 
   finalEvaluation: FinalEvaluation; 
-
+  setField: (field: keyof InterviewForm, value: any) => void;
+  saveInterview: (data: InterviewForm) => void;
   setInterviewStarted: (val: boolean) => void;
   setThreadId: (id: string) => void;
   setMaxSteps: (steps: number) => void;
@@ -50,6 +59,14 @@ interface InterviewState {
 }
 
 export const useInterviewStore = create<InterviewState>((set) => ({
+    form: {
+    name: "",
+    position: "",
+    difficulty: "",
+    questions: 0,
+    cv: null,
+  },
+
   interviewStarted: false,
   messages: [],
   threadId: undefined,
@@ -73,7 +90,10 @@ finalEvaluation: {
 
   maxSteps: 3,
   currentStep: 1,
-
+  setField: (field, value) =>
+    set((state) => ({
+      form: { ...state.form, [field]: value },
+    })),
   setInterviewStarted: (val) => set({ interviewStarted: val }),
   setThreadId: (id) => set({ threadId: id }),
   setMaxSteps: (steps) => set({ maxSteps: steps }),
@@ -92,6 +112,16 @@ finalEvaluation: {
 
   setFeedbackList: (fb) => set({ feedbackList: fb }),
   setFinalEvaluation: (fe) => set({ finalEvaluation: fe }),
+  saveInterview: (data) => {
+    const all = JSON.parse(localStorage.getItem("interviews") || "[]");
+    all.push({
+      id: Date.now().toString(),
+      ...data,
+      createdAt: new Date().toISOString(),
+      status: "pending",
+    });
+    localStorage.setItem("interviews", JSON.stringify(all));
+  },
 
   reset: () =>
     set({
